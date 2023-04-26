@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     public float speedIncrement; // The amount to increase the speed by
     public float speedDecrement; // The amount to decrease the speed by
 
-    public Text[] speedTexts; // An array of UI Text elements to display the speed of each car
+    public GameObject StartPannel;
+  
     public Button startButton; // The button to start the cars moving
 
     public float car1Speed; // The speed of car 1
@@ -28,18 +29,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 0;
         // Find all the CarController components in the scene and add them to the cars array
         cars = FindObjectsOfType<CarController>();
 
         // Add a click listener to the start button to start the cars moving
         startButton.onClick.AddListener(StartCars);
 
-        // Attach a script to each input field to set the speed of the corresponding car
-        car1Input.onValueChanged.AddListener(delegate { SetCar1Speed(float.Parse(car1Input.text)); });
-        car2Input.onValueChanged.AddListener(delegate { SetCar2Speed(float.Parse(car2Input.text)); });
-        car3Input.onValueChanged.AddListener(delegate { SetCar3Speed(float.Parse(car3Input.text)); });
-        car4Input.onValueChanged.AddListener(delegate { SetCar4Speed(float.Parse(car4Input.text)); });
-        car5Input.onValueChanged.AddListener(delegate { SetCar5Speed(float.Parse(car5Input.text)); });
+        StartPannel.SetActive(true);
+
     }
 
     void Update()
@@ -53,27 +51,16 @@ public class GameManager : MonoBehaviour
         cars[4].speed = car5Speed;
 
 
-        // Attach a script to each input field to set the speed of the corresponding car
-        car1Input.onValueChanged.AddListener(delegate { SetCar1Speed(float.Parse(car1Input.text)); });
-        car2Input.onValueChanged.AddListener(delegate { SetCar2Speed(float.Parse(car2Input.text)); });
-        car3Input.onValueChanged.AddListener(delegate { SetCar3Speed(float.Parse(car3Input.text)); });
-        car4Input.onValueChanged.AddListener(delegate { SetCar4Speed(float.Parse(car4Input.text)); });
-        car5Input.onValueChanged.AddListener(delegate { SetCar5Speed(float.Parse(car5Input.text)); });
+      
 
-
-        // Update the UI to display the speed of each car
-        for (int i = 0; i < speedTexts.Length; i++)
-        {
-            // Get the speed of the current car and update the corresponding UI Text element
-            float speed = cars[i].speed;
-            string speedText = "Car " + (i + 1) + ": " + speed.ToString("0.0");
-            speedTexts[i].text = speedText;
-        }
+       
     }
 
     // Method to start all the cars moving
    public void StartCars()
     {
+        Time.timeScale = 1;
+        StartPannel.SetActive(false);
         foreach (CarController car in cars)
         {
             car.StartMoving();
