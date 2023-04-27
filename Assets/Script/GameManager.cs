@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
     public float speedDecrement; // The amount to decrease the speed by
 
     public GameObject StartPannel;
+    public GameObject Day;
+    public GameObject Night;
   
-    public Button startButton; // The button to start the cars moving
+    public Button startButtonDay; // The button to start the cars moving
+    public Button startButtonNight; // The button to start the cars moving
 
     public float car1Speed; // The speed of car 1
     public float car2Speed; // The speed of car 2
@@ -34,10 +37,12 @@ public class GameManager : MonoBehaviour
         cars = FindObjectsOfType<CarController>();
 
         // Add a click listener to the start button to start the cars moving
-        startButton.onClick.AddListener(StartCars);
+        startButtonDay.onClick.AddListener(DayStartCars);
+        startButtonNight.onClick.AddListener(NightStartCars);
 
         StartPannel.SetActive(true);
-
+        Day.SetActive(true);
+        Night.SetActive(false);
     }
 
     void Update()
@@ -57,10 +62,29 @@ public class GameManager : MonoBehaviour
     }
 
     // Method to start all the cars moving
-   public void StartCars()
+   public void DayStartCars()
     {
+
+
         Time.timeScale = 1;
+        Day.SetActive(true);
+        Night.SetActive(false);
         StartPannel.SetActive(false);
+  
+        foreach (CarController car in cars)
+        {
+            car.StartMoving();
+        }
+    }
+
+    public void NightStartCars()
+    {
+
+        Time.timeScale = 1;
+        Day.SetActive(false);
+        Night.SetActive(true);
+        StartPannel.SetActive(false);
+       
         foreach (CarController car in cars)
         {
             car.StartMoving();
