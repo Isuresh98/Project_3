@@ -25,7 +25,9 @@ public class CameraController : MonoBehaviour
         // If a car with maximum speed is found, move the camera towards it with a smooth dampening effect
         if (maxSpeedCar != null)
         {
-            Vector3 targetPosition = maxSpeedCar.transform.position + offset;
+            Vector3 targetPosition = new Vector3(maxSpeedCar.transform.position.x + offset.x, transform.position.y, transform.position.z);
+
+
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         }
     }

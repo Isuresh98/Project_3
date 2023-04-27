@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-public class Parallax : MonoBehaviour
+public class Parallax_BG : MonoBehaviour
 {
     public Camera mainCamera;
     public float parallaxSpeed;
@@ -14,7 +13,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         startPosX = transform.position.x;
-        length = GetComponent<Tilemap>().size.x * GetComponent<Tilemap>().cellSize.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     void Update()
