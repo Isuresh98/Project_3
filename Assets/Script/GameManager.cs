@@ -66,6 +66,12 @@ public class GameManager : MonoBehaviour
             car.StartMoving();
         }
     }
+    public void Stop()
+    {
+        Time.timeScale = 0;
+        StartPannel.SetActive(true);
+       
+    }
 
     public void SetCar1Speed(float speed)
     {
